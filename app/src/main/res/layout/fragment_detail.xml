@@ -13,27 +13,47 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="16dp"
-        android:orientation="vertical"
-        tools:context=".DetailFragment">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:text="@{diary.title}"
-            android:textSize="32sp" />
-
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="16dp"
-            android:text="@{diary.content}"
-            android:textSize="16sp" />
-    </LinearLayout>
+            android:orientation="vertical"
+            tools:context=".DetailFragment"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="16dp">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="@{diary.title}"
+                android:textSize="32sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{diary.date}"
+                android:textSize="32sp" />
+
+            <TextView
+                android:id="@+id/temperatureView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{diary.temperature.toString()}"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="16dp"
+                android:text="@{diary.content}"
+                android:textSize="16sp" />
+
+
+
+
+        </LinearLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/deleteButton"
@@ -45,6 +65,8 @@
             app:layout_constraintRight_toRightOf="parent"
             android:src="@android:drawable/ic_menu_delete"
             android:layout_gravity="bottom|end" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

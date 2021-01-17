@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -15,6 +16,13 @@ import com.example.diaryapp.R
 import com.example.diaryapp.databinding.FragmentAddBinding
 import com.example.diaryapp.domain.Diary
 import com.example.diaryapp.utils.GPSUtils
+import com.example.diaryapp.utils.WeatherStackApi
+import com.example.diaryapp.utils.WeatherStackItem
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
@@ -48,11 +56,12 @@ class AddFragment : Fragment() {
             try {
                 // Get current date
                 val date = SimpleDateFormat("dd-MM-YYYY").format(Date());
-
                 // Check if location for post is enabled
                 var currentLat: String = ""
                 var currentLong: String = ""
                 var currentCity: String = ""
+                var currentTemp: Int? = -99
+                var weatherCode: Int = 0
                 if(binding.locationSwitch.isChecked){
                     // Get current location
                     gpsUtils.findDeviceLocation(requireActivity())
@@ -65,8 +74,17 @@ class AddFragment : Fragment() {
 
                     // Get weather information
                     // TODO: API call naar WeatherStack
-                }
+                    val service = WeatherStackApi.weatherStackService
+                    val call = service.getResponse(access_key = "7097696b78b919d0ff95d07e1c433a60", query = "Breda")
 
+                    GlobalScope.launch {
+                        val request = call.execute()
+                        val response = request.body()
+                        currentTemp = response?.current?.temperature
+                        println(currentTemp)
+                    }
+
+                }
 
                 val newPost = Diary(
                     title = binding.addPostTitleInput.text.toString(),
@@ -75,8 +93,9 @@ class AddFragment : Fragment() {
                     coordLat = currentLat,
                     coordLong = currentLong,
                     city = currentCity,
-                    temperature = 0,
-                    weather = ""
+                    temperature = currentTemp,
+                    weather = weatherCode
+
                 )
                 diaryRepository.add(newPost)
                 requireActivity().supportFragmentManager.popBackStack()

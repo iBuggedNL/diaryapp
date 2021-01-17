@@ -48,8 +48,8 @@ abstract class MyRoomDatabase : RoomDatabase() {
                 GlobalScope.launch {
                     val diaryDao = it.diaryDao()
                     diaryDao.deleteAll()
-                    diaryDao.insert(Diary(1, "My first post", "This is my first post in my new diary!", "17-01-2021", "", "", "Breda", 5, "Clear"))
-                    diaryDao.insert(Diary(2, "My second post", "This is my second post in my new diary!", "18-01-2021", "", "", "Bergen op Zoom", 10, "clear"))
+                    diaryDao.insert(Diary(1, "My first post", "This is my first post in my new diary!", "17-01-2021", "", "", "Breda", 5, 0))
+                    diaryDao.insert(Diary(2, "My second post", "This is my second post in my new diary!", "18-01-2021", "", "", "Bergen op Zoom", 10, 0))
                 }
             }
         }

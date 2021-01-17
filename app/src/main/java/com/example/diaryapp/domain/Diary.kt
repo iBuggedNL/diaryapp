@@ -14,7 +14,7 @@ data class Diary(
     var coordLong: String?,
     var city: String?,
     var temperature: Int? = -99,
-    var weather: String?
+    var weather: Int?
 ) {
     override fun toString(): String {
         return "$title ($date)"

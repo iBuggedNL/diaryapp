@@ -8,7 +8,7 @@ import kotlinx.coroutines.launch
 import java.util.*
 
 class DiaryRepository(private val diaryDao: DiaryDao) {
-    private val defaultPost = Diary(-1, "Loading posts...", "", "", "", "", "", 0, "Clear")
+    private val defaultPost = Diary(-1, "Loading posts...", "", "", "", "", "", 0, 0)
 
     private val all: MutableLiveData<List<Diary>> =
         MutableLiveData(listOf(defaultPost))
