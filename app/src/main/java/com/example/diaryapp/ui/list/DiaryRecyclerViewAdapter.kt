@@ -28,6 +28,7 @@ class DiaryRecyclerViewAdapter(
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val titleText: TextView = view.findViewById(R.id.titleText)
+        val dateText: TextView = view.findViewById(R.id.date_view)
         var id: Int? = null
 
         init {
@@ -50,6 +51,7 @@ class DiaryRecyclerViewAdapter(
 
         holder.id = diary.id
         holder.titleText.text = diary.title
+        holder.dateText.text = diary.date
     }
 
     override fun getItemCount(): Int = posts.value?.size ?: 0
