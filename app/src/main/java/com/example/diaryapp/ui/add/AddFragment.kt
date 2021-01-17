@@ -49,24 +49,31 @@ class AddFragment : Fragment() {
                 // Get current date
                 val date = SimpleDateFormat("dd-MM-YYYY").format(Date());
 
-                // Get current location
-                gpsUtils.findDeviceLocation(requireActivity())
-                val locations = geocoder.getFromLocation(gpsUtils.latitude.toDouble(), gpsUtils.longitude.toDouble(), 1)
-                val currentLocation = locations.get(0)
-                val currentLat = currentLocation.latitude
-                val currentLong = currentLocation.longitude
-                val currentCity = currentLocation.subAdminArea
-                Toast.makeText(requireContext(), currentCity, Toast.LENGTH_LONG).show();
+                // Check if location for post is enabled
+                var currentLat: String = ""
+                var currentLong: String = ""
+                var currentCity: String = ""
+                if(binding.locationSwitch.isChecked){
+                    // Get current location
+                    gpsUtils.findDeviceLocation(requireActivity())
+                    val locations = geocoder.getFromLocation(gpsUtils.latitude.toDouble(), gpsUtils.longitude.toDouble(), 1)
+                    val currentLocation = locations.get(0)
+                    currentLat = currentLocation.latitude.toString()
+                    currentLong = currentLocation.longitude.toString()
+                    currentCity = currentLocation.subAdminArea.toString()
+                    Toast.makeText(requireContext(), currentCity, Toast.LENGTH_LONG).show();
 
-                // Get weather information
+                    // Get weather information
+                    // TODO: API call naar WeatherStack
+                }
 
 
                 val newPost = Diary(
                     title = binding.addPostTitleInput.text.toString(),
                     content = binding.addPostContentInput.text.toString(),
                     date = date,
-                    coordLat = currentLat.toString(),
-                    coordLong = currentLong.toString(),
+                    coordLat = currentLat,
+                    coordLong = currentLong,
                     city = currentCity,
                     temperature = 0,
                     weather = ""

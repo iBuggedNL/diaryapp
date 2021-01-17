@@ -30,17 +30,16 @@
             android:ems="10"
             android:hint="@string/type_your_post_here_hint"
             android:inputType="textNoSuggestions"
-            app:layout_constraintBottom_toTopOf="@+id/addReleaseInput"
+            app:layout_constraintBottom_toTopOf="@+id/locationSwitch"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/addPostTitleInput" />
 
         <Switch
-            android:id="@+id/addReleaseInput"
+            android:id="@+id/locationSwitch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:autofillHints="false"
             android:ems="10"
             android:text="@string/enable_location_and_weather"
             app:layout_constraintBottom_toBottomOf="parent"
