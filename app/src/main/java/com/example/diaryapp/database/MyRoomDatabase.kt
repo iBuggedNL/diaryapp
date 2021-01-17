@@ -10,7 +10,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.util.*
 
-@Database(entities = [Diary::class], version = 6, exportSchema = false)
+@Database(entities = [Diary::class], version = 7, exportSchema = false)
 abstract class MyRoomDatabase : RoomDatabase() {
 
     abstract fun diaryDao(): DiaryDao

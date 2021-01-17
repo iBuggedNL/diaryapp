@@ -9,8 +9,10 @@ import com.example.diaryapp.ui.add.AddFragment
 import com.example.diaryapp.ui.detail.DetailFragment
 import com.example.diaryapp.ui.list.ListFragment
 import com.example.diaryapp.utils.GPSUtils
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.MainScope
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var gpsUtils: GPSUtils;

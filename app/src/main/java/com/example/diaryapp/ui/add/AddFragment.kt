@@ -17,12 +17,16 @@ import com.example.diaryapp.databinding.FragmentAddBinding
 import com.example.diaryapp.domain.Diary
 import com.example.diaryapp.utils.GPSUtils
 import com.example.diaryapp.utils.WeatherStackApi
+import com.example.diaryapp.utils.WeatherStackApi.weatherStackService
 import com.example.diaryapp.utils.WeatherStackItem
+import com.example.diaryapp.utils.WeatherStackService
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.await
 import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
@@ -77,28 +81,47 @@ class AddFragment : Fragment() {
                     val service = WeatherStackApi.weatherStackService
                     val call = service.getResponse(access_key = "7097696b78b919d0ff95d07e1c433a60", query = "Breda")
 
-                    GlobalScope.launch {
-                        val request = call.execute()
-                        val response = request.body()
-                        currentTemp = response?.current?.temperature
-                        println(currentTemp)
-                    }
+                    call.enqueue(object: Callback<WeatherStackItem> {
+                        override fun onFailure(call: Call<WeatherStackItem>, t: Throwable) {
+                            Toast.makeText(requireContext(), "Failed retrieving weather information!", Toast.LENGTH_SHORT).show()
+                        }
 
+                        override fun onResponse(
+                            call: Call<WeatherStackItem>,
+                            response: Response<WeatherStackItem>
+                        ) {
+                            val newPost = Diary(
+                                title = binding.addPostTitleInput.text.toString(),
+                                content = binding.addPostContentInput.text.toString(),
+                                date = date,
+                                coordLat = currentLat,
+                                coordLong = currentLong,
+                                city = currentCity,
+                                temperature = response.body()?.current?.temperature,
+                                weather = response.body()?.current?.weatherCode
+
+                            )
+                            diaryRepository.add(newPost)
+                            requireActivity().supportFragmentManager.popBackStack()
+                        }
+
+                    })
+
+                }else{
+                    val newPost = Diary(
+                        title = binding.addPostTitleInput.text.toString(),
+                        content = binding.addPostContentInput.text.toString(),
+                        date = date,
+                        coordLat = currentLat,
+                        coordLong = currentLong,
+                        city = currentCity,
+                        temperature = currentTemp,
+                        weather = weatherCode
+
+                    )
+                    diaryRepository.add(newPost)
+                    requireActivity().supportFragmentManager.popBackStack()
                 }
-
-                val newPost = Diary(
-                    title = binding.addPostTitleInput.text.toString(),
-                    content = binding.addPostContentInput.text.toString(),
-                    date = date,
-                    coordLat = currentLat,
-                    coordLong = currentLong,
-                    city = currentCity,
-                    temperature = currentTemp,
-                    weather = weatherCode
-
-                )
-                diaryRepository.add(newPost)
-                requireActivity().supportFragmentManager.popBackStack()
             } catch (e: Exception) {
                 e.printStackTrace()
                 Toast.makeText(requireContext(), e.toString(), Toast.LENGTH_LONG).show()
