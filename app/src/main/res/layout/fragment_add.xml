@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.add.AddFragment">
+
+        <EditText
+            android:id="@+id/addPostTitleInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autofillHints="false"
+            android:ems="10"
+            android:hint="@string/title_hint"
+            android:inputType="textNoSuggestions"
+            app:layout_constraintBottom_toTopOf="@+id/addPostContentInput"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/addPostContentInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autofillHints="false"
+            android:ems="10"
+            android:hint="@string/type_your_post_here_hint"
+            android:inputType="textNoSuggestions"
+            app:layout_constraintBottom_toTopOf="@+id/addReleaseInput"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addPostTitleInput" />
+
+        <Switch
+            android:id="@+id/addReleaseInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autofillHints="false"
+            android:ems="10"
+            android:text="@string/use_location_for_post_text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addPostContentInput"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/submitButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:contentDescription="@string/submit_text"
+            android:src="@android:drawable/ic_menu_save"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
