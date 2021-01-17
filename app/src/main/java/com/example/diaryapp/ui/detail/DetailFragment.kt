@@ -1,6 +1,7 @@
 package com.example.diaryapp.ui.detail
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -57,6 +58,8 @@ class DetailFragment : Fragment() {
         }
 
         binding.diary = DiaryDetailVM.diary.value
+
+        Log.i("location", binding.diary?.city.toString())
 
         return binding.root
     }

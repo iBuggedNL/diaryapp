@@ -1,7 +1,9 @@
 package com.example.diaryapp.ui.add
 
 import android.annotation.SuppressLint
+import android.location.Geocoder
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +14,7 @@ import com.example.diaryapp.MyApplication
 import com.example.diaryapp.R
 import com.example.diaryapp.databinding.FragmentAddBinding
 import com.example.diaryapp.domain.Diary
+import com.example.diaryapp.utils.GPSUtils
 import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
@@ -24,9 +27,13 @@ import java.util.*
 class AddFragment : Fragment() {
     private lateinit var binding: FragmentAddBinding
     private val diaryRepository by lazy { (requireActivity().application as MyApplication).diaryRepository }
+    private lateinit var gpsUtils: GPSUtils
+    private lateinit var geocoder: Geocoder
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        gpsUtils = GPSUtils.getInstance()
+        geocoder = Geocoder(requireContext(), Locale.getDefault())
     }
 
     @SuppressLint("SimpleDateFormat")
@@ -40,14 +47,28 @@ class AddFragment : Fragment() {
         binding.submitButton.setOnClickListener {
             try {
                 // Get current date
-                val date = SimpleDateFormat("dd-mm-YYYY").format(Date());
+                val date = SimpleDateFormat("dd-MM-YYYY").format(Date());
+
+                // Get current location
+                gpsUtils.findDeviceLocation(requireActivity())
+                val locations = geocoder.getFromLocation(gpsUtils.latitude.toDouble(), gpsUtils.longitude.toDouble(), 1)
+                val currentLocation = locations.get(0)
+                val currentLat = currentLocation.latitude
+                val currentLong = currentLocation.longitude
+                val currentCity = currentLocation.subAdminArea
+                Toast.makeText(requireContext(), currentCity, Toast.LENGTH_LONG).show();
+
+                // Get weather information
+
 
                 val newPost = Diary(
                     title = binding.addPostTitleInput.text.toString(),
                     content = binding.addPostContentInput.text.toString(),
                     date = date,
-                    coordLat = "",
-                    coordLong = "",
+                    coordLat = currentLat.toString(),
+                    coordLong = currentLong.toString(),
+                    city = currentCity,
+                    temperature = 0,
                     weather = ""
                 )
                 diaryRepository.add(newPost)

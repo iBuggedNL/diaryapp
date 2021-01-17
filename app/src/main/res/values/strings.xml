@@ -5,4 +5,5 @@
     <string name="submit_text">Submit Post</string>
     <string name="type_your_post_here_hint">Type your post here..</string>
     <string name="use_location_for_post_text">Use location for post</string>
+    <string name="enable_location_and_weather">Enable Location and weather</string>
 </resources>
