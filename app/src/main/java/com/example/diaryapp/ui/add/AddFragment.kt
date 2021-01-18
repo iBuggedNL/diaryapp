@@ -95,7 +95,7 @@ class AddFragment : Fragment() {
                                 weather = response.body()?.current?.weatherCode
 
                             )
-                            Toast.makeText(requireContext(), response.body()?.current?.weatherCode.toString(), Toast.LENGTH_SHORT).show()
+
                             diaryRepository.add(newPost)
                             requireActivity().supportFragmentManager.popBackStack()
                         }

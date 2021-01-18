@@ -53,8 +53,6 @@ class DetailFragment : Fragment() {
         }
         DiaryDetailVM.diary.observe(requireActivity(), dataObserver)
 
-        Toast.makeText(requireContext(), binding.diary?.title, Toast.LENGTH_LONG).show()
-
         binding.deleteButton.setOnClickListener {
             diaryRepository.remove(binding.diary!!)
             requireActivity().supportFragmentManager.popBackStack()
