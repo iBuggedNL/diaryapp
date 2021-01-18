@@ -7,26 +7,21 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import com.example.diaryapp.BuildConfig
 import com.example.diaryapp.MyApplication
 import com.example.diaryapp.R
 import com.example.diaryapp.databinding.FragmentAddBinding
 import com.example.diaryapp.domain.Diary
 import com.example.diaryapp.utils.GPSUtils
 import com.example.diaryapp.utils.WeatherStackApi
-import com.example.diaryapp.utils.WeatherStackApi.weatherStackService
 import com.example.diaryapp.utils.WeatherStackItem
-import com.example.diaryapp.utils.WeatherStackService
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.await
+
 import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
@@ -77,7 +72,6 @@ class AddFragment : Fragment() {
                     Toast.makeText(requireContext(), currentCity, Toast.LENGTH_LONG).show();
 
                     // Get weather information
-                    // TODO: API call naar WeatherStack
                     val service = WeatherStackApi.weatherStackService
                     val call = service.getResponse(access_key = "7097696b78b919d0ff95d07e1c433a60", query = "Breda")
 

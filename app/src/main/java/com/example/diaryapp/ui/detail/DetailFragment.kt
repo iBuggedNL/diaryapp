@@ -52,6 +52,10 @@ class DetailFragment : Fragment() {
         }
         DiaryDetailVM.diary.observe(requireActivity(), dataObserver)
 
+        if(binding.diary?.weather == 0) {
+            binding.temperatureView.visibility = View.INVISIBLE
+        }
+
         binding.deleteButton.setOnClickListener {
             diaryRepository.remove(binding.diary!!)
             requireActivity().supportFragmentManager.popBackStack()

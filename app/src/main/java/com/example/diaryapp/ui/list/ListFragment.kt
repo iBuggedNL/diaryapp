@@ -40,7 +40,6 @@ class ListFragment : Fragment() {
         binding.diaryRecycler.setHasFixedSize(true)
         binding.diaryRecycler.layoutManager = LinearLayoutManager(activity)
         binding.diaryRecycler.adapter = adapter
-
         binding.addButton.setOnClickListener {
             mainActivity.showAdd()
         }

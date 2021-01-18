@@ -4,6 +4,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
@@ -30,6 +31,8 @@ class DiaryRecyclerViewAdapter(
         val titleText: TextView = view.findViewById(R.id.titleText)
         val dateText: TextView = view.findViewById(R.id.date_view)
         val locationText: TextView = view.findViewById(R.id.location_view)
+        val weatherIcon: ImageView = view.findViewById(R.id.weather_icon)
+        val weatherCode: TextView = view.findViewById(R.id.weatherCode)
         var id: Int? = null
 
         init {
@@ -54,6 +57,21 @@ class DiaryRecyclerViewAdapter(
         holder.titleText.text = diary.title
         holder.dateText.text = diary.date
         holder.locationText.text = diary.city
+        val currentWeatherCode = diary.weather
+        holder.weatherCode.visibility = View.INVISIBLE
+
+        when(currentWeatherCode) {
+            113 -> holder.weatherIcon.setImageResource(R.drawable.ic_wi_day_sunny)
+            116, 119 -> holder.weatherIcon.setImageResource(R.drawable.ic_wi_cloudy)
+            143, 248, 260 -> holder.weatherIcon.setImageResource(R.drawable.ic_wi_fog)
+            185, 281, 284, 293, 296, 299, 302, 305, 308, 311 -> holder.weatherIcon.setImageResource(R.drawable.ic_wi_day_rain)
+            179, 227, 230 -> holder.weatherIcon.setImageResource(R.drawable.ic_wi_snow)
+            176, 263, 266 -> holder.weatherIcon.setImageResource(R.drawable.ic_wi_day_sprinkle)
+            200 -> holder.weatherIcon.setImageResource(R.drawable.ic_wi_day_lightning)
+            182 -> holder.weatherIcon.setImageResource(R.drawable.ic_wi_day_sleet)
+            0 ->  holder.weatherIcon.visibility = View.INVISIBLE
+        }
+
     }
 
     override fun getItemCount(): Int = posts.value?.size ?: 0
