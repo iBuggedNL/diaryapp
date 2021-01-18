@@ -43,7 +43,7 @@ abstract class MyRoomDatabase : RoomDatabase() {
     private class MyRoomDataBasePopulator : RoomDatabase.Callback() {
 
         private fun addItems() {
-
+            // Delete all posts and seed with default ones
             INSTANCE?.let {
                 GlobalScope.launch {
                     val diaryDao = it.diaryDao()
@@ -56,13 +56,11 @@ abstract class MyRoomDatabase : RoomDatabase() {
 
         override fun onCreate(db: SupportSQLiteDatabase) {
             super.onCreate(db)
-
             addItems()
         }
 
         override fun onDestructiveMigration(db: SupportSQLiteDatabase) {
             super.onDestructiveMigration(db)
-
             addItems()
         }
     }

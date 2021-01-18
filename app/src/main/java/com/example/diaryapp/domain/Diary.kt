@@ -21,6 +21,7 @@ data class Diary(
         return "$title ($date)"
     }
 
+    // Get weather icon by resource id
     fun getWeatherIcon(): Int {
         var weatherIcon = -1
         when(weather) {

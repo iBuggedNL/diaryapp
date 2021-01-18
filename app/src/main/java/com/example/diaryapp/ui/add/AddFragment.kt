@@ -55,12 +55,15 @@ class AddFragment : Fragment() {
             try {
                 // Get current date
                 val date = SimpleDateFormat("dd-MM-YYYY").format(Date());
-                // Check if location for post is enabled
+
+                // Set default values for location & weather data
                 var currentLat: String = ""
                 var currentLong: String = ""
                 var currentCity: String = ""
                 var currentTemp: Int? = 99
                 var weatherCode: Int = 0
+
+                // Check switch state
                 if(binding.locationSwitch.isChecked){
                     // Get current location
                     gpsUtils.findDeviceLocation(requireActivity())
@@ -76,8 +79,23 @@ class AddFragment : Fragment() {
 
                     call.enqueue(object: Callback<WeatherStackItem> {
                         override fun onFailure(call: Call<WeatherStackItem>, t: Throwable) {
+                            // API request failed, use diary object without location data
                             Toast.makeText(requireContext(), "Failed retrieving weather information!", Toast.LENGTH_SHORT).show()
-                            Toast.makeText(requireContext(), t.message, Toast.LENGTH_LONG).show()
+
+                            // Diary object
+                            val newPost = Diary(
+                                    title = binding.addPostTitleInput.text.toString(),
+                                    content = binding.addPostContentInput.text.toString(),
+                                    date = date,
+                                    coordLat = currentLat,
+                                    coordLong = currentLong,
+                                    city = currentCity,
+                                    temperature = currentTemp,
+                                    weather = weatherCode
+
+                            )
+                            diaryRepository.add(newPost)
+                            requireActivity().supportFragmentManager.popBackStack()
                         }
 
                         override fun onResponse(
@@ -103,6 +121,7 @@ class AddFragment : Fragment() {
                     })
 
                 }else{
+                    // Location switch state is off
                     val newPost = Diary(
                         title = binding.addPostTitleInput.text.toString(),
                         content = binding.addPostContentInput.text.toString(),

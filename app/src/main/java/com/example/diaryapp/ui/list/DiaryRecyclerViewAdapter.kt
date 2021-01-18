@@ -35,6 +35,7 @@ class DiaryRecyclerViewAdapter(
         var id: Int? = null
 
         init {
+            // Set the click listener to the detailed view of post
             view.setOnClickListener {
                 val id = id ?: throw IllegalStateException()
                 activity.showDetail(id)
@@ -49,14 +50,15 @@ class DiaryRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        Log.i("", "onBindViewHolder: $position")
         val diary = posts.value?.get(position) ?: throw IllegalStateException()
 
+        // Set data values
         holder.id = diary.id
         holder.titleText.text = diary.title
         holder.dateText.text = diary.date
         holder.locationText.text = diary.city
 
+        // Get the weather icon for post when present (not -1)
         val weatherIcon = diary.getWeatherIcon()
         if(weatherIcon != -1) {
             holder.weatherIcon.setImageResource(diary.getWeatherIcon())

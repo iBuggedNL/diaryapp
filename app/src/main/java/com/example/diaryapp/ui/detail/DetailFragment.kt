@@ -53,6 +53,7 @@ class DetailFragment : Fragment() {
         }
         DiaryDetailVM.diary.observe(requireActivity(), dataObserver)
 
+        // Add on click listener for deleting post
         binding.deleteButton.setOnClickListener {
             diaryRepository.remove(binding.diary!!)
             requireActivity().supportFragmentManager.popBackStack()
