@@ -37,7 +37,7 @@ class DetailFragmentTest {
 
     @Test
     fun checkIfDateIsShown() {
-        onView(withText("18-01-2021"))
+        onView(withText("17-01-2021"))
                 .check(matches(isDisplayed()))
     }
 }

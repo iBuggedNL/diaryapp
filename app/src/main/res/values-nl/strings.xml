@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Dagboek App</string>
+    <string name="title_hint">Titel</string>
+    <string name="submit_text">Post aanmaken</string>
+    <string name="type_your_post_here_hint">Typ hier je bericht..</string>
+    <string name="use_location_for_post_text">Gebruik locatie voor bericht</string>
+    <string name="enable_location_and_weather">Activeer locatie en weer</string>
+    <string name="hello_blank_fragment">Hoi blank fragment</string>
+    <string name="loading">Laden...</string>
+</resources>
