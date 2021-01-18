@@ -31,9 +31,9 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
             .commit()
     }
 
-    fun showDetail(movieId: Int) {
+    fun showDetail(postId: Int) {
 
-        val detailFragment = DetailFragment.newInstance(movieId)
+        val detailFragment = DetailFragment.newInstance(postId)
         supportFragmentManager.beginTransaction()
             .replace(R.id.activeFragment, detailFragment)
             .addToBackStack(null)

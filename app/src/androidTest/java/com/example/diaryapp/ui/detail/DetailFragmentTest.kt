@@ -20,14 +20,24 @@ class DetailFragmentTest {
 
     @Before
     fun before() {
-        activityRule.scenario.onActivity { it.showDetail(5) }
+        activityRule.scenario.onActivity { it.showDetail(1) }
     }
 
     @Test
-    fun showDetails() {
-        onView(withText("F. Darabont"))
+    fun checkIfTemperatureIsShown() {
+        onView(withText("Temperatuur: 23 graden"))
             .check(matches(isDisplayed()))
     }
 
+    @Test
+    fun checkIfDescriptionIsShown() {
+        onView(withText("This is my first post in my new diary!"))
+                .check(matches(isDisplayed()))
+    }
 
+    @Test
+    fun checkIfDateIsShown() {
+        onView(withText("18-01-2021"))
+                .check(matches(isDisplayed()))
+    }
 }

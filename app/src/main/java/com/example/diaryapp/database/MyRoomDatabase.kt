@@ -10,7 +10,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.util.*
 
-@Database(entities = [Diary::class], version = 7, exportSchema = false)
+@Database(entities = [Diary::class], version = 8, exportSchema = false)
 abstract class MyRoomDatabase : RoomDatabase() {
 
     abstract fun diaryDao(): DiaryDao
@@ -48,7 +48,7 @@ abstract class MyRoomDatabase : RoomDatabase() {
                 GlobalScope.launch {
                     val diaryDao = it.diaryDao()
                     diaryDao.deleteAll()
-                    diaryDao.insert(Diary(1, "My first post", "This is my first post in my new diary!", "17-01-2021", "", "", "Breda", 5, 0))
+                    diaryDao.insert(Diary(1, "My first post", "This is my first post in my new diary!", "17-01-2021", "", "", "Breda", 23, 122))
                     diaryDao.insert(Diary(2, "My second post", "This is my second post in my new diary!", "18-01-2021", "", "", "Bergen op Zoom", 10, 0))
                 }
             }

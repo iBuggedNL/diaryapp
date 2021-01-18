@@ -25,11 +25,11 @@
         <EditText
             android:id="@+id/addPostContentInput"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="150dp"
             android:autofillHints="false"
             android:ems="10"
             android:hint="@string/type_your_post_here_hint"
-            android:inputType="textNoSuggestions"
+            android:inputType="textMultiLine"
             app:layout_constraintBottom_toTopOf="@+id/locationSwitch"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

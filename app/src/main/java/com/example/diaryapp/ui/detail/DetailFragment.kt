@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -52,9 +53,7 @@ class DetailFragment : Fragment() {
         }
         DiaryDetailVM.diary.observe(requireActivity(), dataObserver)
 
-        if(binding.diary?.weather == 0) {
-            binding.temperatureView.visibility = View.INVISIBLE
-        }
+        Toast.makeText(requireContext(), binding.diary?.title, Toast.LENGTH_LONG).show()
 
         binding.deleteButton.setOnClickListener {
             diaryRepository.remove(binding.diary!!)
@@ -62,8 +61,6 @@ class DetailFragment : Fragment() {
         }
 
         binding.diary = DiaryDetailVM.diary.value
-
-        Log.i("location", binding.diary?.city.toString())
 
         return binding.root
     }

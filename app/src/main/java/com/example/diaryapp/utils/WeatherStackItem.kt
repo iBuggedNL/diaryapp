@@ -63,7 +63,7 @@ data class Current(
 	val cloudcover: Int,
 
 	@Json(name="precip")
-	val precip: Int,
+	val precip: Double,
 
 	@Json(name="uv_index")
 	val uvIndex: Int,
@@ -102,13 +102,13 @@ data class Location(
 	val timezoneId: String,
 
 	@Json(name="lon")
-	val lon: String,
+	var lon: String,
 
 	@Json(name="region")
 	val region: String,
 
 	@Json(name="lat")
-	val lat: String
+	var lat: String
 )
 
 class WeatherAdapter {

@@ -11,7 +11,7 @@ import com.example.diaryapp.R
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.time.LocalDateTime
+import java.util.*
 
 @RunWith(AndroidJUnit4::class)
 class MainActivityTest {
@@ -20,38 +20,67 @@ class MainActivityTest {
     val activityRule = ActivityScenarioRule(MainActivity::class.java)
 
     @Test
-    fun testNavigateOnClickList() {
-        onView(withText("The Shawshank Redemption"))
+    fun testNavigationToDetailView() {
+        onView(withText("My first post"))
             .perform(click())
 
-        onView(withText("F. Darabont"))
+        onView(withText("This is my first post in my new diary!"))
             .check(matches(isDisplayed()))
     }
 
     @Test
-    fun testAddMovieAndVerifyThatItAppearsInList() {
-        val uniqueName = LocalDateTime.now().toString()
+    fun testCreateNewPostWithoutLocationEnabled() {
+        val postTitle = UUID.randomUUID().toString()
+        val postContent = "This is my test description!"
 
-        // Navigate to add fragment from listview
+        // Click on the add button in view
         onView(withId(R.id.addButton))
             .perform(click())
 
-        // Enter movie details
-        onView(withId(R.id.addTitleInput))
-            .perform(typeText(uniqueName))
+        // Fill in the title
+        onView(withId(R.id.addPostTitleInput))
+            .perform(typeText(postTitle))
 
-        onView(withId(R.id.addDirectorInput))
-            .perform(typeText("Test Director"))
+        // Fill in the content
+        onView(withId(R.id.addPostContentInput))
+            .perform(typeText(postContent))
 
-        onView(withId(R.id.addReleaseInput))
-            .perform(typeText("aa1234"))
-
-        // Submit new movie
+        // Submit post
         onView(withId(R.id.submitButton))
             .perform(click())
 
-        // Confirm that the new movie is in the list view
-        onView(withText(uniqueName))
+        // Check if the post is added
+        onView(withText(postTitle))
             .check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun testCreateNewPostWithLocationEnabled() {
+        val postTitle = UUID.randomUUID().toString()
+        val postContent = "This is my second test description!"
+
+        // Click on the add button in view
+        onView(withId(R.id.addButton))
+                .perform(click())
+
+        // Fill in the title
+        onView(withId(R.id.addPostTitleInput))
+                .perform(typeText(postTitle))
+
+        // Fill in the content
+        onView(withId(R.id.addPostContentInput))
+                .perform(typeText(postContent))
+
+        // Toggle location switch
+        onView(withId(R.id.locationSwitch))
+                .perform(click())
+
+        // Submit post
+        onView(withId(R.id.submitButton))
+                .perform(click())
+
+        // Check if the post is added
+        onView(withText(postTitle))
+                .check(matches(isDisplayed()))
     }
 }

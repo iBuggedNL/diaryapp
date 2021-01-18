@@ -59,7 +59,7 @@ class AddFragment : Fragment() {
                 var currentLat: String = ""
                 var currentLong: String = ""
                 var currentCity: String = ""
-                var currentTemp: Int? = -99
+                var currentTemp: Int? = 99
                 var weatherCode: Int = 0
                 if(binding.locationSwitch.isChecked){
                     // Get current location
@@ -69,15 +69,15 @@ class AddFragment : Fragment() {
                     currentLat = currentLocation.latitude.toString()
                     currentLong = currentLocation.longitude.toString()
                     currentCity = currentLocation.subAdminArea.toString()
-                    Toast.makeText(requireContext(), currentCity, Toast.LENGTH_LONG).show();
 
                     // Get weather information
                     val service = WeatherStackApi.weatherStackService
-                    val call = service.getResponse(access_key = "7097696b78b919d0ff95d07e1c433a60", query = "Breda")
+                    val call = service.getResponse(access_key = "7097696b78b919d0ff95d07e1c433a60", query = currentCity)
 
                     call.enqueue(object: Callback<WeatherStackItem> {
                         override fun onFailure(call: Call<WeatherStackItem>, t: Throwable) {
                             Toast.makeText(requireContext(), "Failed retrieving weather information!", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(requireContext(), t.message, Toast.LENGTH_LONG).show()
                         }
 
                         override fun onResponse(
@@ -95,6 +95,7 @@ class AddFragment : Fragment() {
                                 weather = response.body()?.current?.weatherCode
 
                             )
+                            Toast.makeText(requireContext(), response.body()?.current?.weatherCode.toString(), Toast.LENGTH_SHORT).show()
                             diaryRepository.add(newPost)
                             requireActivity().supportFragmentManager.popBackStack()
                         }
